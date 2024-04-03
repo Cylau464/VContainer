@@ -9,6 +9,7 @@ using UnityEditor.Compilation;
 
 namespace VContainer.Editor
 {
+#if VCONTAINER_SCRIPT_TEMPLATE_ENABLE
     public sealed class ScriptTemplateProcessor : UnityEditor.AssetModificationProcessor
     {
 #if UNITY_2020_2_OR_NEWER
@@ -110,4 +111,5 @@ namespace VContainer.Editor
         }
 #endif
     }
+#endif
 }
