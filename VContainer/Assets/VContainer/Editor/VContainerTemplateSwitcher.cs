@@ -15,7 +15,7 @@ namespace VContainer.Editor
         {
             string defines = GetDefines();
 
-            defines += $";{METRICS_ENABLE_DEFINE_NAME}";
+            defines += $";{VCONTAINER_TEMPLATE_ENABLE_DEFINE_NAME}";
             BuildTargetGroup buildTargetGroup = GetBiuldTargetGroup();
             PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, defines);
         }
@@ -24,7 +24,7 @@ namespace VContainer.Editor
         private static void DisableTemplateDefine()
         {
             string defines = GetDefines();
-            defines = defines.Replace($";{METRICS_ENABLE_DEFINE_NAME}", "");
+            defines = defines.Replace($";{VCONTAINER_TEMPLATE_ENABLE_DEFINE_NAME}", "");
             BuildTargetGroup buildTargetGroup = GetBiuldTargetGroup();
             PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, defines);
         }
@@ -34,7 +34,7 @@ namespace VContainer.Editor
         {
             string defines = GetDefines();
 
-            return !defines.Contains(METRICS_ENABLE_DEFINE_NAME);
+            return !defines.Contains(VCONTAINER_TEMPLATE_ENABLE_DEFINE_NAME);
         }
 
         [MenuItem(DISABLE_PATH, true)]
@@ -42,7 +42,7 @@ namespace VContainer.Editor
         {
             string defines = GetDefines();
 
-            return defines.Contains(METRICS_ENABLE_DEFINE_NAME);
+            return defines.Contains(VCONTAINER_TEMPLATE_ENABLE_DEFINE_NAME);
         }
 
         private static string GetDefines()
