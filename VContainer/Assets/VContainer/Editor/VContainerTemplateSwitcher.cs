@@ -6,43 +6,29 @@ namespace VContainer.Editor
     public static class VContainerTemplateSwitcher
     {
         private const string VCONTAINER_TEMPLATE_ENABLE_DEFINE_NAME = "VCONTAINER_SCRIPT_TEMPLATE_ENABLE";
-        private const string MENU_TITLE = "Tools/VContainer/";
-        private const string ENABLE_PATH = MENU_TITLE + "Enable Template";
-        private const string DISABLE_PATH = MENU_TITLE + "Disable Template";
+        private const string MENU_TITLE = "Tools/VContainer/LifetimeScope Template";
 
-        [MenuItem(ENABLE_PATH)]
-        private static void EnableTemplateDefine()
+        [MenuItem(MENU_TITLE)]
+        private static void SwitchTemplateDefine()
         {
             string defines = GetDefines();
 
-            defines += $";{VCONTAINER_TEMPLATE_ENABLE_DEFINE_NAME}";
+            if(defines.Contains(VCONTAINER_TEMPLATE_ENABLE_DEFINE_NAME))
+                defines = defines.Replace($";{VCONTAINER_TEMPLATE_ENABLE_DEFINE_NAME}", "");
+            else
+                defines += $";{VCONTAINER_TEMPLATE_ENABLE_DEFINE_NAME}";
+            
             BuildTargetGroup buildTargetGroup = GetBiuldTargetGroup();
             PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, defines);
         }
 
-        [MenuItem(DISABLE_PATH)]
-        private static void DisableTemplateDefine()
+        [MenuItem(MENU_TITLE, true)]
+        private static bool SwitchTemplateValidate()
         {
             string defines = GetDefines();
-            defines = defines.Replace($";{VCONTAINER_TEMPLATE_ENABLE_DEFINE_NAME}", "");
-            BuildTargetGroup buildTargetGroup = GetBiuldTargetGroup();
-            PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, defines);
-        }
+            Menu.SetChecked(MENU_TITLE, defines.Contains(VCONTAINER_TEMPLATE_ENABLE_DEFINE_NAME));
 
-        [MenuItem(ENABLE_PATH, true)]
-        private static bool IsDefineEnabled()
-        {
-            string defines = GetDefines();
-
-            return !defines.Contains(VCONTAINER_TEMPLATE_ENABLE_DEFINE_NAME);
-        }
-
-        [MenuItem(DISABLE_PATH, true)]
-        private static bool IsDefineDisabled()
-        {
-            string defines = GetDefines();
-
-            return defines.Contains(VCONTAINER_TEMPLATE_ENABLE_DEFINE_NAME);
+            return true;
         }
 
         private static string GetDefines()
